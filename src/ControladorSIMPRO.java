@@ -27,10 +27,10 @@ public class ControladorSIMPRO {
 		// inicia las variables
 	public void inicio() {
 		//crea los procesos, PID, llegada (de 0 en adelante, debe de haber uno que comience en 0), ráfaga
-		Proceso miProcesoA = new Proceso(0,5,5);
-		Proceso miProcesoB = new Proceso(1,4,2);
-		Proceso miProcesoC = new Proceso(2,1,5);
-		Proceso miProcesoD = new Proceso(3,2,4);
+		Proceso miProcesoA = new Proceso(0,5,3);
+		Proceso miProcesoB = new Proceso(1,4,6);
+		Proceso miProcesoC = new Proceso(2,1,11);
+		Proceso miProcesoD = new Proceso(3,2,9);
 
 		// borra la lista y carga los procesos
 		miLista.clear();

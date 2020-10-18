@@ -56,7 +56,6 @@ public class Srt {
 
 			// procesa el proceso actual quita uno a la ráfaga para simular el procesado
 			if (procesado!=null) {
-				System.out.println((i+1)+".- ");
 				procesado.toOut();
 				procesado.setRafaga(procesado.getRafaga()-1);
 			}
