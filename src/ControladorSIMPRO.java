@@ -57,16 +57,20 @@ public class ControladorSIMPRO {
 	public void procesa(int tipoAlg) {
 		switch (tipoAlg) {
 			case 0:
-				Fifo.procesa(miLista);
+				Fifo miFifo = new Fifo(miLista);
+				miFifo.procesa(miLista);
 				break;
 			case 1:
-				Srt.procesa(miLista);
+				Srt miSrt = new Srt(miLista);
+				miSrt.procesa(miLista);
 				break;
 			case 2:
-				//Sjf.procesa(miLista);
+				Sjf miSjf = new Sjf(miLista);
+				miSjf.procesa(miLista);
 				break;
 			case 3:
-				//Rr.procesa(miLista);
+				Rr miRr = new Rr(miLista);
+				miRr.procesa(miLista);
 				break;
 			default:
 				System.out.println("Eing??");
