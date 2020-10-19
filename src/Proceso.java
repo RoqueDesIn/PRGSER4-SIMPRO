@@ -2,7 +2,8 @@
 public class Proceso implements Comparable<Proceso>{
 	/**
 
-	 * Esta clase define el objeto de Procesos con los campos PID, llegada y ráfaga.
+	 * Esta clase define el objeto de Procesos con los campos PID, llegada, 
+	 * ráfaga y fin(-1 si no se ha procesado).
 
 	 * @author Roque Flores Naranjo
 	 * 
@@ -16,6 +17,7 @@ public class Proceso implements Comparable<Proceso>{
 	protected int PID;
 	protected int llegada;
 	protected int rafaga;
+	protected int fin;
 	
 	// COMPORTAMIENTOS
 	/**
@@ -29,6 +31,7 @@ public class Proceso implements Comparable<Proceso>{
 		PID = pID;
 		this.llegada = llegada;
 		this.rafaga = rafaga;
+		this.fin=-1;
 	}
 	
 	/**
@@ -71,12 +74,22 @@ public class Proceso implements Comparable<Proceso>{
 	public void setRafaga(int rafaga) {
 		this.rafaga = rafaga;
 	}
+	public void setFin(int fin) {
+		this.fin=fin;
+	}
+
+	public int getFin() {
+		// TODO Auto-generated method stub
+		return this.fin;
+	}
 	/**
 	 * escribe por pantalla el proceso
 	 */
 	public void toOut() {
 		System.out.println("Proceso: "+PID+" Llegada: "+llegada+" Ráfaga: "+rafaga);
 	}
+
+
 	
 	
 }

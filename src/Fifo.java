@@ -16,7 +16,6 @@ public class Fifo  extends Procesador{
 	 */
 	// estados
 
-	
 	// comportamientos
 	/**
 	 * constructor heredado
@@ -31,11 +30,13 @@ public class Fifo  extends Procesador{
 	@Override
 	public void comprueba() {
 		if  (procesado.getRafaga()==0) {
-			super.comprueba();
+			// guarda el tiempo de reloj de fin del proceso en la lista auxiliar
+			listaAux.get((listaAux.findByPid(procesado.getPID()))).setFin(iterador);
 			// si el proceso ha acabado lo cambiamos por el siguiente
 			procesado=cola.get(0);
 			// borramos el proceso de la cola
 			cola.borraIndex(cola.findByPid(procesado.getPID()));
+			
 		} else {
 			// es un proceso no apropiativo por lo que no cambia nada en caso de que no se agote el proceso
 		}	

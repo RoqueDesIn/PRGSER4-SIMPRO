@@ -27,6 +27,20 @@ public class ListaProcesos {
 		listaProcesos=new ArrayList<Proceso>();
 	}
 	
+
+	/**
+	 * copia una lista de procesos a partir de un parámetro lista de procesos
+	 * @param listaAux
+	 */
+	public ListaProcesos(ListaProcesos listaAux) {
+		listaProcesos=new ArrayList<Proceso>();
+		for (int i=0;i<listaAux.size();i++) {
+			Proceso p=new Proceso(listaAux.get(i).getPID(), 
+					listaAux.get(i).getLlegada(),listaAux.get(i).getRafaga());
+			listaProcesos.add (p);
+		}
+	}
+	
 	/**
 	 *  añade un proceso a nuestra lista
 	 * @param miProcesoA

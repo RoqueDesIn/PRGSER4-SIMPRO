@@ -16,6 +16,8 @@ public class Procesador {
 	// estados
 	static  protected ListaProcesos cola;
 	static protected Proceso procesado;
+	static protected ListaProcesos listaAux; 
+	static protected int iterador;
 	//***************************************************
 	// crea el quatum
 	static protected int quantum=2;
@@ -25,9 +27,36 @@ public class Procesador {
 	 * constructor vacio
 	 */
 	public Procesador(ListaProcesos miLista) {
+		// guarda la lista en una lista auxiliar
+		listaAux=new ListaProcesos(miLista);
 		procesa(miLista);
+		calcula();
 	}
 	
+	private void calcula() {
+		/*
+		 *  Rendimiento = Media de penalizaciones	
+		 * 	Penalización = (tiempo fin-tiempo llegada)/Tiempo CPU								
+		 */
+		float penalizacion=0;
+		float sumatoria=0;
+		float media=0;
+		System.out.println("--------------------------");
+		System.out.println("|Proc. | Penalización    |");
+		System.out.println("--------------------------");
+		for (int i=0;i<listaAux.size();i++) {
+			// 	Penalización = (tiempo fin-tiempo llegada)/Tiempo CPU
+			penalizacion=(float) (listaAux.get(i).getFin()-listaAux.get(i).getLlegada())/listaAux.prtoTot();
+			System.out.println("|   "+i+"  | "+penalizacion);
+			sumatoria=sumatoria+penalizacion;
+		}
+		media=sumatoria/listaAux.prtoTot();
+		System.out.println("--------------------------");
+		System.out.println("|Rendimiento  "+media+"  |");
+		System.out.println("--------------------------");
+		
+	}
+
 	public void procesa(ListaProcesos miLista) {
 		// calcula el procesamiento total
 		int procesamiento=miLista.prtoTot();
@@ -40,11 +69,11 @@ public class Procesador {
 		int contador=0;
 		procesado=null;
 		//recorre todos los pasos de proceso
-		for (int i=0;i<procesamiento;i++) {
+		for (iterador=0;iterador<procesamiento;iterador++) {
 			// recorremos listaProcesos y añadimos a la cola si le toca entrar a algún proceso
 			contador=0;
 			while ( contador<miLista.size()) {
-				if (i==miLista.get(contador).getLlegada()-1) cola.add(miLista.get(contador));
+				if (iterador==miLista.get(contador).getLlegada()-1) cola.add(miLista.get(contador));
 				contador++;
 			}
 			//finaliza while
@@ -68,7 +97,8 @@ public class Procesador {
 				cntQuantum++;
 			}
 		}
-
+		// guarda el tiempo de reloj de fin del último proceso en la lista auxiliar
+		listaAux.get((listaAux.findByPid(procesado.getPID()))).setFin(procesamiento);
 		// finaliza for		
 
 	}
