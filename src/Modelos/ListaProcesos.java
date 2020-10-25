@@ -53,11 +53,13 @@ public class ListaProcesos {
 	/**
 	 * recorre la lista y la muestra por pantalla
 	 */
-	public void toOut() {
+	public String  toOut() {
+		String resultado=" ";
 		// muestra la lista a procesar ordenada
 		for (Proceso p:listaProcesos) {
-			System.out.println("Proceso: "+p.PID+" Llegada: "+p.llegada+" Ráfaga: "+p.rafaga);
-		}		
+			resultado= resultado + ("Proceso: "+p.PID+" Llegada: "+p.llegada+" Ráfaga: "+p.rafaga+"\n");
+		}	
+		return resultado;
 	}
 	
 	/**

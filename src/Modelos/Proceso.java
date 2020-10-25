@@ -86,8 +86,8 @@ public class Proceso implements Comparable<Proceso>{
 	/**
 	 * escribe por pantalla el proceso
 	 */
-	public void toOut() {
-		System.out.println("Proceso: "+PID+" Llegada: "+llegada+" Ráfaga: "+rafaga);
+	public String  toOut() {
+		return "Proceso: "+PID+" Llegada: "+llegada+" Ráfaga: "+rafaga;
 	}
 
 

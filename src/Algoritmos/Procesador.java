@@ -1,5 +1,6 @@
 package Algoritmos;
 
+import Controlador.ControladorSIMPRO;
 import Modelos.ListaProcesos;
 import Modelos.Proceso;
 
@@ -28,7 +29,7 @@ public class Procesador {
 	static protected int cntQuantum;
 	// comportamientos
 	/**
-	 * constructor vacio
+	 * constructor
 	 */
 	public Procesador(ListaProcesos miLista) {
 		// guarda la lista en una lista auxiliar
@@ -45,20 +46,31 @@ public class Procesador {
 		float penalizacion=0;
 		float sumatoria=0;
 		float media=0;
-		System.out.println("--------------------------");
-		System.out.println("|Proc. | Penalización    |");
-		System.out.println("--------------------------");
+		// añade titulos
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+("--------------------------\n"));
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+("|Proc. | Penalización    |\n"));
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+("--------------------------\n"));
+		
+		// calcula rendimiento y penalización
 		for (int i=0;i<listaAux.size();i++) {
 			// 	Penalización = (tiempo fin-tiempo llegada)/Tiempo CPU
 			penalizacion=(float) (listaAux.get(i).getFin()-listaAux.get(i).getLlegada())/listaAux.prtoTot();
-			System.out.println("|   "+i+"  | "+penalizacion);
+			ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+					+ ("|   "+i+"  | "+penalizacion) +("\n"));
 			sumatoria=sumatoria+penalizacion;
 		}
 		media=sumatoria/listaAux.prtoTot();
-		System.out.println("--------------------------");
-		System.out.println("|Rendimiento  "+media+"  |");
-		System.out.println("--------------------------");
 		
+		// añade al texto totales
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+("--------------------------\n"));
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+ "|Rendimiento  "+media+"  |" + ("\n"));
+		ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+				+("--------------------------\n"));
 	}
 
 	public void procesa(ListaProcesos miLista) {
@@ -77,7 +89,7 @@ public class Procesador {
 			// recorremos listaProcesos y añadimos a la cola si le toca entrar a algún proceso
 			contador=0;
 			while ( contador<miLista.size()) {
-				if (iterador==miLista.get(contador).getLlegada()-1) cola.add(miLista.get(contador));
+				if (iterador==miLista.get(contador).getLlegada()) cola.add(miLista.get(contador));
 				contador++;
 			}
 			//finaliza while
@@ -95,7 +107,8 @@ public class Procesador {
 			
 			// procesa el proceso actual quita uno a la ráfaga para simular el procesado
 			if (procesado!=null) {
-				procesado.toOut();
+				ControladorSIMPRO.getWindow().getTaResultado().setText(ControladorSIMPRO.getWindow().getTaResultado().getText()
+						+ procesado.toOut() + "\n");
 				procesado.setRafaga(procesado.getRafaga()-1);
 				// solo para RR
 				cntQuantum++;

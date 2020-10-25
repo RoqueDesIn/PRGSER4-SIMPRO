@@ -1,15 +1,13 @@
 package Controlador;
-import Algoritmos.Fifo;
-import Algoritmos.Rr;
-import Algoritmos.Sjf;
-import Algoritmos.Srt;
+
+import GUI.GUI;
 import Modelos.ListaProcesos;
 import Modelos.Proceso;
 
-public class ControladorSIMPRO {
+public abstract class ControladorSIMPRO {
 	/**
 
-	 * Esta clase define el controlador denuestra aplicación
+	 * Esta clase define el controlador de nuestra aplicación
 
 	 * @author Roque Flores Naranjo
 	 * 
@@ -19,21 +17,38 @@ public class ControladorSIMPRO {
 
 	 */
 	//Estados
-	private ListaProcesos miLista;
+	private static ListaProcesos miLista;
+	private static GUI miWindow;
 	
 	//Comportamientos
 	// Constructor vacio
 	public ControladorSIMPRO() {
-		miLista=new ListaProcesos();
+;
 	}
 
 		// inicia las variables
-	public void inicio() {
+	public static void inicio() {
+		System.out.println("******************************");
+		//  iniciar la GUI 
+		try {
+			miWindow = new GUI();
+			miWindow.frame.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	/**
+	 * Carga los procesos desde la GUI
+	 */
+	public static void cargaProcesos () {
+		miLista=new ListaProcesos();
 		//crea los procesos, PID, llegada (de 0 en adelante, debe de haber uno que comience en 0), ráfaga
-		Proceso miProcesoA = new Proceso(0,5,3);
-		Proceso miProcesoB = new Proceso(1,4,6);
-		Proceso miProcesoC = new Proceso(2,1,11);
-		Proceso miProcesoD = new Proceso(3,2,9);
+		Proceso miProcesoA = new Proceso(0,Integer.parseInt(miWindow.getTextFieldB1().getText()),Integer.parseInt(miWindow.getTextFieldC1().getText()));
+		Proceso miProcesoB = new Proceso(1,Integer.parseInt(miWindow.getTextFieldB2().getText()),Integer.parseInt(miWindow.getTextFieldC2().getText()));
+		Proceso miProcesoC = new Proceso(2,Integer.parseInt(miWindow.getTextFieldB3().getText()),Integer.parseInt(miWindow.getTextFieldC3().getText()));
+		Proceso miProcesoD = new Proceso(3,Integer.parseInt(miWindow.getTextFieldB4().getText()),Integer.parseInt(miWindow.getTextFieldC4().getText()));
 
 		// borra la lista y carga los procesos
 		miLista.clear();
@@ -43,42 +58,25 @@ public class ControladorSIMPRO {
 		miLista.add(miProcesoD);
 		// la ordena
 		miLista.ordenarxLlegada();
-		// la muestra por pantalla
-		System.out.println("procesando la lista de procesos:\n");
-		miLista.toOut();	
-		System.out.println("***************************");
+		// la carga en el Text area
+		miWindow.getTaResultado().setText(miWindow.getTaResultado().getText() + "procesando la lista de procesos:\n");
+		miWindow.getTaResultado().setText(miWindow.getTaResultado().getText() + miLista.toOut() +"\n");	
+		miWindow.getTaResultado().setText((miWindow.getTaResultado().getText() + "***************************\n"));
 	}
 
-	/**
-	 * * procesa los procesos en el modo solicitado
-	 * @param tipoAlg
-	 * 0=FIFO
-	 * 1=SRT
-	 * 2=SJF
-	 * 3=RR
-	 */
-	public void procesa(int tipoAlg) {
-		switch (tipoAlg) {
-			case 0:
-				Fifo miFifo = new Fifo(miLista);
-//				miFifo.procesa(miLista);
-				break;
-			case 1:
-				Srt miSrt = new Srt(miLista);
-//				miSrt.procesa(miLista);
-				break;
-			case 2:
-				Sjf miSjf = new Sjf(miLista);
-//				miSjf.procesa(miLista);
-				break;
-			case 3:
-				Rr miRr = new Rr(miLista);
-//				miRr.procesa(miLista);
-				break;
-			default:
-				System.out.println("Eing??");
-				
-		}
-	}
 	
+	/**
+	 * getWindow
+	 * @return
+	 */
+	public static GUI getWindow() {
+		return miWindow;
+	}
+	/*
+	 * Get lista de procesos
+	 */
+	public static ListaProcesos getMiLista() {
+		// TODO Auto-generated method stub
+		return miLista;
+	}
 }
